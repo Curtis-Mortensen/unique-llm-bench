@@ -12,20 +12,23 @@ jobs:
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
-          response=$(curl -s https://openrouter.ai/api/v1 \
-            -H "Authorization: Bearer $OPENROUTER_API_KEY" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "model": "google/gemini-3.1-flash-lite-preview",
-              "messages": [
-                {
-                  "role": "user",
-                  "content": "Reply with: OpenRouter API is working"
-                }
-              ]
-            }')
+          response=$(curl -s https://openrouter.ai/api/v1/chat/completions \
+  -X POST \
+  -H "Authorization: Bearer $OPENROUTER_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "HTTP-Referer: https://github.com/${{ github.repository }}" \
+  -H "X-Title: GitHub Action OpenRouter Test" \
+  -d '{
+    "model": "google/gemini-3.1-flash-lite-preview",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Reply with exactly: OpenRouter API is working"
+      }
+    ]
+  }')
 
-          echo "API response:"
+          echo "HTTP/API response:"
           echo "$response"
 
           if echo "$response" | grep -q "OpenRouter API is working"; then
@@ -34,3 +37,7 @@ jobs:
             echo "Failure: Unexpected response"
             exit 1
           fi
+
+`Settings -> Secrets and variables -> Actions -> New repository secret`
+
+After that, go to the Actions tab and manually run the workflow from `workflow_dispatch`.
