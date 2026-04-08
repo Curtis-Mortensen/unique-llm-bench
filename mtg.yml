@@ -16,6 +16,13 @@
 format_version: "1.0"
 answer_format: exact_match
 
+defaultTest:
+  options:
+    transform: "output.trim().toLowerCase()"
+  assert:
+    - type: equals
+      value: "{{answer | lower}}"
+
 # ─────────────────────────────────────────────
 # SECTION 1 — MTG KNOWLEDGE QUESTIONS
 # ─────────────────────────────────────────────
