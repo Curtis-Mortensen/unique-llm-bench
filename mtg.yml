@@ -16,6 +16,9 @@
 format_version: "1.0"
 answer_format: exact_match
 
+providers:
+  - file://promptfoo.config.base.yaml
+
 defaultTest:
   options:
     transform: "output.trim().toLowerCase()"
