@@ -5,7 +5,6 @@
 providers:
   - id: openrouter:google/gemini-3.1-flash-lite-preview
     config:
-      apiKey: env:OPENROUTER_API_KEY
       apiBaseUrl: https://openrouter.ai/api/v1
       stream: true
 
