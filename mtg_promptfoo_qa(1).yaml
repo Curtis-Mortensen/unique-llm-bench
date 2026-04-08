@@ -1,0 +1,205 @@
+# MTG Promptfoo Q&A — valid promptfoo config
+# oracle text sourced from Scryfall
+# mana symbols use {X} notation: {W} {U} {B} {R} {G} {C} {T}
+
+providers:
+  - id: openrouter:google/gemini-2.5-flash-preview
+    config:
+      apiKey: env:OPENROUTER_API_KEY
+      apiBaseUrl: https://openrouter.ai/api/v1
+      stream: true
+
+prompts:
+  - "{{question}}"
+
+defaultTest:
+  options:
+    transform: "output.trim().toLowerCase()"
+  assert:
+    - type: equals
+      value: "{{answer | lower}}"
+
+tests:
+
+  # ─────────────────────────────────────────────
+  # SECTION 1 — MTG KNOWLEDGE QUESTIONS
+  # ─────────────────────────────────────────────
+
+  # mtg_001 — formats
+  - vars:
+      question: "Name the 7 most popular paper (not online or draft) MTG formats in alphabetical order. Respond with a comma-separated list only, no other text."
+      answer: "Commander, Legacy, Modern, Pauper, Pioneer, Standard, Vintage"
+
+  # mtg_002 — history
+  - vars:
+      question: "What was the date of MTG's general release? Respond in dd-mm-yyyy format only, no other text."
+      answer: "05-08-1993"
+
+  # mtg_003 — sets
+  - vars:
+      question: "What were the first 10 expansion sets in MTG history after Limited Edition Alpha, Limited Edition Beta, Unlimited Edition, Collectors Edition, and International Collectors Edition? List them in release order as a comma-separated list only, no other text."
+      answer: "Arabian Nights, Antiquities, Revised Edition, Legends, Summer Magic / Edgar, Dragon Con, The Dark, Fallen Empires, Fourth Edition, Ice Age"
+
+  # mtg_004 — sets
+  - vars:
+      question: "When was Ravnica, City of Guilds released? Respond in dd-mm-yyyy format only, no other text."
+      answer: "07-10-2005"
+
+  # mtg_005 — lore
+  - vars:
+      question: "What are the 10 guilds from Ravnica, City of Guilds in alphabetical order with their corresponding mana colors? Format each entry as 'Guild Name (Color1, Color2)' in a comma-separated list only, no other text. Colors should be in WUBRG order within each pair."
+      answer: "Azorius (White, Blue), Boros (White, Red), Dimir (Blue, Black), Golgari (Black, Green), Gruul (Red, Green), Izzet (Blue, Red), Orzhov (White, Black), Rakdos (Black, Red), Selesnya (White, Green), Simic (Blue, Green)"
+
+  # mtg_006 — rules
+  - vars:
+      question: "What are the 18 evergreen keyword actions (game mechanics, not ability keywords) in MTG in alphabetical order? Respond with a comma-separated list only, no other text. Tap and Untap count as one entry written as Tap/Untap."
+      answer: "Activate, Attach, Cast, Counter, Create, Destroy, Discard, Exchange, Exile, Fight, Mill, Play, Reveal, Sacrifice, Scry, Search, Shuffle, Tap/Untap"
+
+  # mtg_007 — rules
+  - vars:
+      question: "What are the 17 evergreen ability keywords (not game mechanics or keyword actions) in MTG in alphabetical order? Respond with a comma-separated list only, no other text."
+      answer: "Deathtouch, Defender, Double strike, Enchant, Equip, First strike, Flash, Flying, Haste, Hexproof, Indestructible, Lifelink, Menace, Reach, Trample, Vigilance, Ward"
+
+  # mtg_008 — formats
+  - vars:
+      question: "During what month do Standard sets rotate in MTG, and after how long do cards rotate out? Respond in the format 'Month, X years' only, no other text."
+      answer: "September, 3 years"
+
+  # mtg_009 — products
+  - vars:
+      question: "When were the first Commander preconstructed decks released? Respond in dd-mm-yyyy format only, no other text."
+      answer: "17-06-2011"
+
+  # mtg_010 — products
+  - vars:
+      question: "What were the names of the 5 decks in the first Commander preconstructed product (Commander 2011)? List them alphabetically as a comma-separated list only, no other text."
+      answer: "Counterpunch, Devour for Power, Heavenly Inferno, Mirror Mastery, Political Puppets"
+
+  # mtg_011 — reserved list
+  - vars:
+      question: "What are all of the cards from Limited Edition Alpha/Beta that are on the Reserved List? List them alphabetically as a comma-separated list only, no other text."
+      answer: "Ancestral Recall, Badlands, Bayou, Black Lotus, Blaze of Glory, Braingeyser, Chaos Orb, Contract from Below, Copy Artifact, Cyclopean Tomb, Darkpact, Demonic Attorney, Demonic Hordes, Farmstead, Fastbond, Forcefield, Fork, Gauntlet of Might, Granite Gargoyle, Illusionary Mask, Kudzu, Lich, Mox Emerald, Mox Jet, Mox Pearl, Mox Ruby, Mox Sapphire, Natural Selection, Plateau, Raging River, Roc of Kher Ridges, Rock Hydra, Savannah, Scrubland, Sedge Troll, Taiga, Time Vault, Time Walk, Timetwister, Tropical Island, Tundra, Two-Headed Giant of Foriys, Underground Sea, Vesuvan Doppelganger, Veteran Bodyguard, Volcanic Island, Wheel of Fortune, Word of Command"
+
+  # mtg_012 — sets
+  - vars:
+      question: "What was the first MTG set to feature planeswalker cards and when was it released? Respond in the format 'Set Name, dd-mm-yyyy' only, no other text."
+      answer: "Lorwyn, 12-10-2007"
+
+  # mtg_013 — cards
+  - vars:
+      question: "What were the 5 first planeswalker cards ever printed in MTG? List them alphabetically as a comma-separated list only, no other text."
+      answer: "Ajani Goldmane, Chandra Nalaar, Garruk Wildspeaker, Jace Beleren, Liliana Vess"
+
+  # mtg_014 — cards
+  - vars:
+      question: "What are the 7 most common creature subtypes in Magic: The Gathering (each with over 600 cards)? List them alphabetically as a comma-separated list only, no other text."
+      answer: "Elemental, Human, Soldier, Spirit, Warrior, Wizard, Zombie"
+
+
+  # ─────────────────────────────────────────────
+  # SECTION 2 — CARD TEXT QUESTIONS (groups of 3)
+  # Uses contains assertions due to JSON formatting variance.
+  # defaultTest equals assert is overridden per test in this section.
+  # ─────────────────────────────────────────────
+
+  # card_001 — Sol Ring, Arcane Signet, Swords to Plowshares
+  - vars:
+      question: "Give me the exact oracle text for the following 3 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Sol Ring, Arcane Signet, Swords to Plowshares. Respond with JSON only, no other text."
+      answer: "placeholder"
+    assert:
+      - type: contains
+        value: "\"mana_cost\": \"{1}\""
+        metric: sol_ring_mana_cost
+      - type: contains
+        value: "{T}: Add {C}{C}."
+        metric: sol_ring_oracle
+      - type: contains
+        value: "one mana of any color in your commander's color identity"
+        metric: arcane_signet_oracle
+      - type: contains
+        value: "Exile target creature. Its controller gains life equal to its power."
+        metric: swords_oracle
+
+  # card_002 — Path to Exile, Cultivate, Counterspell
+  - vars:
+      question: "Give me the exact oracle text for the following 3 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Path to Exile, Cultivate, Counterspell. Respond with JSON only, no other text."
+      answer: "placeholder"
+    assert:
+      - type: contains
+        value: "Its controller may search their library for a basic land card"
+        metric: path_oracle
+      - type: contains
+        value: "up to two basic land cards"
+        metric: cultivate_oracle
+      - type: contains
+        value: "Counter target spell."
+        metric: counterspell_oracle
+
+  # card_003 — Farseek, Rampant Growth, Lightning Greaves
+  - vars:
+      question: "Give me the exact oracle text for the following 3 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Farseek, Rampant Growth, Lightning Greaves. Respond with JSON only, no other text."
+      answer: "placeholder"
+    assert:
+      - type: contains
+        value: "Plains, Island, Swamp, or Mountain"
+        metric: farseek_oracle
+      - type: contains
+        value: "Search your library for a basic land card, put that card onto the battlefield tapped"
+        metric: rampant_growth_oracle
+      - type: contains
+        value: "haste and shroud"
+        metric: greaves_oracle
+      - type: contains
+        value: "Equip {0}"
+        metric: greaves_equip
+
+  # card_004 — Dark Ritual, Rhystic Study, Enlightened Tutor
+  - vars:
+      question: "Give me the exact oracle text for the following 3 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Dark Ritual, Rhystic Study, Enlightened Tutor. Respond with JSON only, no other text."
+      answer: "placeholder"
+    assert:
+      - type: contains
+        value: "Add {B}{B}{B}."
+        metric: dark_ritual_oracle
+      - type: contains
+        value: "you may draw a card unless that player pays {1}"
+        metric: rhystic_oracle
+      - type: contains
+        value: "shuffle and put that card on top"
+        metric: enlightened_tutor_oracle
+
+  # card_005 — Cyclonic Rift, Necropotence, Jeska's Will
+  - vars:
+      question: "Give me the exact oracle text for the following 3 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Cyclonic Rift, Necropotence, Jeska's Will. Respond with JSON only, no other text."
+      answer: "placeholder"
+    assert:
+      - type: contains
+        value: "Return target nonland permanent you don't control to its owner's hand"
+        metric: cyclonic_rift_oracle
+      - type: contains
+        value: "Overload {6}{U}"
+        metric: cyclonic_rift_overload
+      - type: contains
+        value: "Skip your draw step."
+        metric: necropotence_oracle
+      - type: contains
+        value: "you may choose both instead"
+        metric: jeskas_will_both_instead
+      - type: contains
+        value: "Add {R} for each card in target opponent's hand"
+        metric: jeskas_will_mode1
+
+  # card_006 — Seedborn Muse, Mana Vault
+  - vars:
+      question: "Give me the exact oracle text for the following 2 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Seedborn Muse, Mana Vault. Respond with JSON only, no other text."
+      answer: "placeholder"
+    assert:
+      - type: contains
+        value: "Untap all permanents you control during each other player's untap step."
+        metric: seedborn_oracle
+      - type: contains
+        value: "Mana Vault doesn't untap during your untap step."
+        metric: mana_vault_oracle
+      - type: contains
+        value: "{T}: Add {C}{C}{C}."
+        metric: mana_vault_tap
