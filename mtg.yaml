@@ -28,6 +28,9 @@ defaultTest:
     - type: equals
       value: "{{answer | lower}}"
 
+prompts:
+  - "{{question}}"
+
 # ─────────────────────────────────────────────
 # SECTION 1 — MTG KNOWLEDGE QUESTIONS
 # ─────────────────────────────────────────────
