@@ -1,0 +1,282 @@
+# MTG Promptfoo Q&A Database
+# answer_format: exact_match
+# card text questions output JSON for 3 cards at a time
+# card oracle text sourced from Scryfall
+
+# ─────────────────────────────────────────────
+# ANSWER FORMAT NOTES
+# ─────────────────────────────────────────────
+# - All list answers: alphabetical, comma-separated, no trailing comma
+# - Card text answers: JSON object, keys are card names, values have:
+#     mana_cost, type_line, oracle_text, rarity
+# - Cyclonic Rift has multiple accepted answers (overload wording variants)
+# - Mana symbols use {X} notation e.g. {W}, {U}, {B}, {R}, {G}, {C}
+# - Newlines in oracle_text use \n
+
+format_version: "1.0"
+answer_format: exact_match
+
+# ─────────────────────────────────────────────
+# SECTION 1 — MTG KNOWLEDGE QUESTIONS
+# ─────────────────────────────────────────────
+
+questions:
+
+  - id: mtg_001
+    category: formats
+    question: "Name the 7 most popular paper (not online or draft) MTG formats in alphabetical order (comma-separated list)."
+    answer: "Commander, Legacy, Modern, Pauper, Pioneer, Standard, Vintage"
+    notes: "Alphabetical order. Online-only and draft formats excluded."
+
+  - id: mtg_002
+    category: history
+    question: "What was the date of MTG's general release? (dd-mm-yyyy)"
+    answer: "05-08-1993"
+
+  - id: mtg_003
+    category: sets
+    question: "What were the first 10 expansion sets in MTG history after Limited Edition Alpha, Limited Edition Beta, Unlimited Edition, Collectors Edition, and International Collectors Edition? List them in release order (comma-separated)."
+    answer: "Arabian Nights, Antiquities, Revised Edition, Legends, Summer Magic / Edgar, Dragon Con, The Dark, Fallen Empires, Fourth Edition, Ice Age"
+    notes: "Release order, not alphabetical."
+
+  - id: mtg_004
+    category: sets
+    question: "When was Ravnica, City of Guilds released? (dd-mm-yyyy)"
+    answer: "07-10-2005"
+
+  - id: mtg_005
+    category: lore
+    question: "What are the 10 guilds from Ravnica, City of Guilds in alphabetical order with their corresponding mana colors? Format each entry as 'Guild Name (Color1, Color2)' in a comma-separated list."
+    answer: "Azorius (White, Blue), Boros (White, Red), Dimir (Blue, Black), Golgari (Black, Green), Gruul (Red, Green), Izzet (Blue, Red), Orzhov (White, Black), Rakdos (Black, Red), Selesnya (White, Green), Simic (Blue, Green)"
+    notes: "Colors listed in WUBRG order within each pair."
+
+  - id: mtg_006
+    category: rules
+    question: "What are the 18 evergreen keyword actions (game mechanics, not ability keywords) in alphabetical order? (comma-separated list)"
+    answer: "Activate, Attach, Cast, Counter, Create, Destroy, Discard, Exchange, Exile, Fight, Mill, Play, Reveal, Sacrifice, Scry, Search, Shuffle, Tap/Untap"
+    notes: "Tap and Untap are paired as one entry per the Comprehensive Rules."
+
+  - id: mtg_007
+    category: rules
+    question: "What are the 17 evergreen ability keywords (not game mechanics/keyword actions) in alphabetical order? (comma-separated list)"
+    answer: "Deathtouch, Defender, Double strike, Enchant, Equip, First strike, Flash, Flying, Haste, Hexproof, Indestructible, Lifelink, Menace, Reach, Trample, Vigilance, Ward"
+
+  - id: mtg_008
+    category: formats
+    question: "During what month do Standard sets rotate, and after how long do cards rotate out of Standard? Format answer as 'Month, X years'."
+    answer: "September, 3 years"
+
+  - id: mtg_009
+    category: products
+    question: "When were the first Commander preconstructed decks released? (dd-mm-yyyy)"
+    answer: "17-06-2011"
+
+  - id: mtg_010
+    category: products
+    question: "What were the names of the 5 decks in the first Commander preconstructed product (Commander 2011)? List them alphabetically (comma-separated)."
+    answer: "Counterpunch, Devour for Power, Heavenly Inferno, Mirror Mastery, Political Puppets"
+
+  - id: mtg_011
+    category: reserved_list
+    question: "What are all of the cards from Limited Edition Alpha/Beta that are on the Reserved List? List them alphabetically (comma-separated)."
+    answer: "Ancestral Recall, Badlands, Bayou, Black Lotus, Blaze of Glory, Braingeyser, Chaos Orb, Contract from Below, Copy Artifact, Cyclopean Tomb, Darkpact, Demonic Attorney, Demonic Hordes, Farmstead, Fastbond, Forcefield, Fork, Gauntlet of Might, Granite Gargoyle, Illusionary Mask, Kudzu, Lich, Mox Emerald, Mox Jet, Mox Pearl, Mox Ruby, Mox Sapphire, Natural Selection, Plateau, Raging River, Roc of Kher Ridges, Rock Hydra, Savannah, Scrubland, Sedge Troll, Taiga, Time Vault, Time Walk, Timetwister, Tropical Island, Tundra, Two-Headed Giant of Foriys, Underground Sea, Vesuvan Doppelganger, Veteran Bodyguard, Volcanic Island, Wheel of Fortune, Word of Command"
+
+  - id: mtg_012
+    category: sets
+    question: "What was the first MTG set to feature planeswalker cards, and when was it released? (Format: 'Set Name, dd-mm-yyyy')"
+    answer: "Lorwyn, 12-10-2007"
+
+  - id: mtg_013
+    category: cards
+    question: "What were the 5 first planeswalker cards ever printed, listed alphabetically? (comma-separated list)"
+    answer: "Ajani Goldmane, Chandra Nalaar, Garruk Wildspeaker, Jace Beleren, Liliana Vess"
+
+  - id: mtg_014
+    category: cards
+    question: "What are the 7 most common creature subtypes in Magic: The Gathering (each with over 600 cards), listed alphabetically? (comma-separated list)"
+    answer: "Elemental, Human, Soldier, Spirit, Warrior, Wizard, Zombie"
+
+
+# ─────────────────────────────────────────────
+# SECTION 2 — CARD TEXT QUESTIONS (groups of 3)
+# Answer format: JSON object with card names as keys
+# Each card object: mana_cost, type_line, oracle_text, rarity
+# ─────────────────────────────────────────────
+
+# JSON answer template:
+# {
+#   "Card Name": {
+#     "mana_cost": "{X}",
+#     "type_line": "Type — Subtype",
+#     "oracle_text": "Card text here.\nNew paragraph after newline.",
+#     "rarity": "Common|Uncommon|Rare|Mythic Rare"
+#   },
+#   ...
+# }
+
+card_text_questions:
+
+  - id: card_001
+    category: card_text
+    group: 1
+    question: "Give me the exact oracle text for the following 3 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Sol Ring, Arcane Signet, Swords to Plowshares."
+    answer: |
+      {
+        "Sol Ring": {
+          "mana_cost": "{1}",
+          "type_line": "Artifact",
+          "oracle_text": "{T}: Add {C}{C}.",
+          "rarity": "Uncommon"
+        },
+        "Arcane Signet": {
+          "mana_cost": "{2}",
+          "type_line": "Artifact",
+          "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+          "rarity": "Common"
+        },
+        "Swords to Plowshares": {
+          "mana_cost": "{W}",
+          "type_line": "Instant",
+          "oracle_text": "Exile target creature. Its controller gains life equal to its power.",
+          "rarity": "Uncommon"
+        }
+      }
+    notes: "Exact Scryfall oracle text."
+
+  - id: card_002
+    category: card_text
+    group: 2
+    question: "Give me the exact oracle text for the following 3 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Path to Exile, Cultivate, Counterspell."
+    answer: |
+      {
+        "Path to Exile": {
+          "mana_cost": "{W}",
+          "type_line": "Instant",
+          "oracle_text": "Exile target creature. Its controller may search their library for a basic land card, put that card onto the battlefield tapped, then shuffle.",
+          "rarity": "Uncommon"
+        },
+        "Cultivate": {
+          "mana_cost": "{2}{G}",
+          "type_line": "Sorcery",
+          "oracle_text": "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle.",
+          "rarity": "Common"
+        },
+        "Counterspell": {
+          "mana_cost": "{U}{U}",
+          "type_line": "Instant",
+          "oracle_text": "Counter target spell.",
+          "rarity": "Common"
+        }
+      }
+
+  - id: card_003
+    category: card_text
+    group: 3
+    question: "Give me the exact oracle text for the following 3 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Farseek, Rampant Growth, Lightning Greaves."
+    answer: |
+      {
+        "Farseek": {
+          "mana_cost": "{1}{G}",
+          "type_line": "Sorcery",
+          "oracle_text": "Search your library for a Plains, Island, Swamp, or Mountain card, put it onto the battlefield tapped, then shuffle.",
+          "rarity": "Common"
+        },
+        "Rampant Growth": {
+          "mana_cost": "{1}{G}",
+          "type_line": "Sorcery",
+          "oracle_text": "Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.",
+          "rarity": "Common"
+        },
+        "Lightning Greaves": {
+          "mana_cost": "{2}",
+          "type_line": "Artifact — Equipment",
+          "oracle_text": "Equipped creature has haste and shroud. (It can't be the target of spells or abilities.)\nEquip {0}",
+          "rarity": "Uncommon"
+        }
+      }
+    notes: "Farseek mana cost is {1}{G}, not {2} — corrected from source document."
+
+  - id: card_004
+    category: card_text
+    group: 4
+    question: "Give me the exact oracle text for the following 3 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Dark Ritual, Rhystic Study, Enlightened Tutor."
+    answer: |
+      {
+        "Dark Ritual": {
+          "mana_cost": "{B}",
+          "type_line": "Instant",
+          "oracle_text": "Add {B}{B}{B}.",
+          "rarity": "Common"
+        },
+        "Rhystic Study": {
+          "mana_cost": "{2}{U}",
+          "type_line": "Enchantment",
+          "oracle_text": "Whenever an opponent casts a spell, you may draw a card unless that player pays {1}.",
+          "rarity": "Rare"
+        },
+        "Enlightened Tutor": {
+          "mana_cost": "{W}",
+          "type_line": "Instant",
+          "oracle_text": "Search your library for an artifact or enchantment card, reveal it, then shuffle and put that card on top.",
+          "rarity": "Rare"
+        }
+      }
+    notes: "Enlightened Tutor word order corrected from source document (shuffle happens before placing on top, as a single action per Scryfall oracle)."
+
+  - id: card_005
+    category: card_text
+    group: 5
+    question: "Give me the exact oracle text for the following 3 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Cyclonic Rift, Necropotence, Jeska's Will."
+    answer:
+      # PRIMARY accepted answer
+      primary: |
+        {
+          "Cyclonic Rift": {
+            "mana_cost": "{1}{U}",
+            "type_line": "Instant",
+            "oracle_text": "Return target nonland permanent you don't control to its owner's hand.\nOverload {6}{U} (You may cast this spell for its overload cost. If you do, replace each instance of \"target\" with \"each\".)",
+            "rarity": "Rare"
+          },
+          "Necropotence": {
+            "mana_cost": "{B}{B}{B}",
+            "type_line": "Enchantment",
+            "oracle_text": "Skip your draw step.\nWhenever you discard a card, exile that card from your graveyard.\nPay 1 life: Exile the top card of your library face down. Put that card into your hand at the beginning of your next end step.",
+            "rarity": "Mythic Rare"
+          },
+          "Jeska's Will": {
+            "mana_cost": "{2}{R}",
+            "type_line": "Sorcery",
+            "oracle_text": "Choose one. If you control a commander as you cast this spell, you may choose both instead.\n• Add {R} for each card in target opponent's hand.\n• Exile the top three cards of your library. You may play them this turn.",
+            "rarity": "Rare"
+          }
+        }
+      # ALTERNATE accepted answer for Cyclonic Rift
+      # Some printings render the overload reminder text slightly differently.
+      # Evaluators should accept either oracle_text value for Cyclonic Rift:
+      alternate_cyclonic_rift_oracle_text:
+        - "Return target nonland permanent you don't control to its owner's hand.\nOverload {6}{U} (You may cast this spell for its overload cost. If you do, replace each instance of \"target\" with \"each\".)"
+        - "Return target nonland permanent you don't control to its owner's hand.\nOverload {6}{U}"
+    notes: >
+      Jeska's Will corrected from source document: 'you may choose both instead' not 'you may choose both'.
+      Cyclonic Rift has multiple accepted answers — some model outputs may omit the reminder text in parentheses.
+      Use a contains/partial match evaluator for Cyclonic Rift oracle_text rather than strict equals.
+
+  - id: card_006
+    category: card_text
+    group: 6
+    question: "Give me the exact oracle text for the following 2 MTG cards as a JSON object with card names as keys, each containing mana_cost, type_line, oracle_text, and rarity: Seedborn Muse, Mana Vault, Sol Ring."
+    answer: |
+      {
+        "Seedborn Muse": {
+          "mana_cost": "{3}{G}{G}",
+          "type_line": "Creature — Spirit",
+          "oracle_text": "Untap all permanents you control during each other player's untap step.",
+          "rarity": "Rare"
+        },
+        "Mana Vault": {
+          "mana_cost": "{1}",
+          "type_line": "Artifact",
+          "oracle_text": "Mana Vault doesn't untap during your untap step.\nAt the beginning of your upkeep, you may pay {4}. If you do, untap Mana Vault.\nAt the beginning of your draw step, if Mana Vault is tapped, it deals 1 damage to you.\n{T}: Add {C}{C}{C}.",
+          "rarity": "Mythic Rare"
+        }
+      }

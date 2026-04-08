@@ -1,0 +1,48 @@
+name: Promptfoo Eval
+
+on:
+  workflow_dispatch:   # manual trigger only — no push, no schedule
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install promptfoo
+        run: npm install -g promptfoo
+
+      - name: Find test configs at repo root
+        id: find-configs
+        run: |
+          # Finds *.yaml files only at the root level (no subdirectories)
+          FILES=$(find . -maxdepth 1 -name "*.yaml" ! -name "*.base.yaml" | tr '\n' ' ')
+          echo "Found configs: $FILES"
+          echo "configs=$FILES" >> $GITHUB_OUTPUT
+
+      - name: Run promptfoo eval
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          mkdir -p results
+          promptfoo eval \
+            --config ${{ steps.find-configs.outputs.configs }} \
+            --output results/results.json \
+            --output results/results.csv \
+            --output results/results.html \
+            --share
+        # --share prints a public URL to the Actions log
+
+      - name: Upload results as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: promptfoo-results
+          path: results/
+          retention-days: 30
