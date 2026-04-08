@@ -3,7 +3,7 @@
 # mana symbols use {X} notation: {W} {U} {B} {R} {G} {C} {T}
 
 providers:
-  - id: openrouter:google/gemini-2.5-flash-preview
+  - id: openrouter:google/gemini-3.1-flash-preview
     config:
       apiKey: env:OPENROUTER_API_KEY
       apiBaseUrl: https://openrouter.ai/api/v1
