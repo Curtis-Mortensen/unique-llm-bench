@@ -34,9 +34,7 @@ jobs:
           mkdir -p results
           promptfoo eval \
             --config ${{ steps.find-configs.outputs.configs }} \
-            --output results/results.json \
-            --output results/results.csv \
-            --output results/results.html \
+            --output results/results.json,results/results.csv,results/results.html \
             --share
         # --share prints a public URL to the Actions log
 
