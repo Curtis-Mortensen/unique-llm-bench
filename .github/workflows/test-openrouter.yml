@@ -1,43 +1,42 @@
-name: Test OpenRouter API
+name: Test OpenRouter API Key
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Run manually from the Actions tab
 
 jobs:
   test-openrouter:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Call OpenRouter API
+      - name: Send test request to OpenRouter
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
-          response=$(curl -s https://openrouter.ai/api/v1/chat/completions \
-  -X POST \
-  -H "Authorization: Bearer $OPENROUTER_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "HTTP-Referer: https://github.com/${{ github.repository }}" \
-  -H "X-Title: GitHub Action OpenRouter Test" \
-  -d '{
-    "model": "google/gemini-3.1-flash-lite-preview",
-    "messages": [
-      {
-        "role": "user",
-        "content": "Reply with exactly: OpenRouter API is working"
-      }
-    ]
-  }')
+          echo "Sending test request to OpenRouter..."
 
-          echo "HTTP/API response:"
-          echo "$response"
+          RESPONSE=$(curl -s -w "\n%{http_code}" https://openrouter.ai/api/v1/chat/completions \
+            -H "Authorization: Bearer $OPENROUTER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "model": "google/gemini-3.1-flash-lite-preview",
+              "messages": [
+                {
+                  "role": "user",
+                  "content": "Say hello in one word."
+                }
+              ],
+              "max_tokens": 10
+            }')
 
-          if echo "$response" | grep -q "OpenRouter API is working"; then
-            echo "Success: OpenRouter API key is working"
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+
+          echo "HTTP Status: $HTTP_CODE"
+          echo "Response Body: $BODY"
+
+          if [ "$HTTP_CODE" -eq 200 ]; then
+            echo "✅ OpenRouter API key is working!"
           else
-            echo "Failure: Unexpected response"
+            echo "❌ Request failed with status $HTTP_CODE"
             exit 1
           fi
-
-`Settings -> Secrets and variables -> Actions -> New repository secret`
-
-After that, go to the Actions tab and manually run the workflow from `workflow_dispatch`.
