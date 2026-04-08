@@ -17,8 +17,10 @@ format_version: "1.0"
 answer_format: exact_match
 
 providers:
-  - file://promptfoo.config.base.yaml
-
+  - id: openrouter:google/gemini-3.1-flash-lite-preview
+    config:
+      stream: true
+  
 defaultTest:
   options:
     transform: "output.trim().toLowerCase()"
