@@ -1,0 +1,129 @@
+{
+  "_comment": "MTG Promptfoo Q&A Database — exact match answers only. All list answers are alphabetically sorted comma-separated strings unless otherwise noted.",
+  "format_version": "1.0",
+  "answer_format": "exact_match",
+  "questions": [
+
+    {
+      "id": "mtg_001",
+      "category": "formats",
+      "question": "Name the 7 most popular paper (not online or draft) MTG formats in alphabetical order (comma-separated list).",
+      "answer": "Commander, Legacy, Modern, Pauper, Pioneer, Standard, Vintage",
+      "notes": "Alphabetical order. Online-only formats (MTGO, Arena) and draft formats excluded."
+    },
+
+    {
+      "id": "mtg_002",
+      "category": "history",
+      "question": "What was the date of MTG's general release? (dd-mm-yyyy)",
+      "answer": "05-08-1993",
+      "notes": "General release date of Limited Edition Alpha / Magic: The Gathering core game."
+    },
+
+    {
+      "id": "mtg_003",
+      "category": "sets",
+      "question": "What were the first 10 expansion sets in MTG history after Limited Edition Alpha, Limited Edition Beta, Unlimited Edition, Collectors Edition, and International Collectors Edition? List them in release order (comma-separated).",
+      "answer": "Arabian Nights, Antiquities, Revised Edition, Legends, Summer Magic / Edgar, Dragon Con, The Dark, Fallen Empires, Fourth Edition, Ice Age",
+      "notes": "Release order, not alphabetical. Includes the extremely rare/limited Summer Magic and Dragon Con sets."
+    },
+
+    {
+      "id": "mtg_004",
+      "category": "sets",
+      "question": "When was Ravnica, City of Guilds released? (dd-mm-yyyy)",
+      "answer": "07-10-2005",
+      "notes": "Release date of the original Ravnica block first set."
+    },
+
+    {
+      "id": "mtg_005",
+      "category": "lore",
+      "question": "What are the 10 guilds from Ravnica, City of Guilds in alphabetical order with their corresponding mana colors? Format each entry as 'Guild Name (Color1, Color2)' in a comma-separated list.",
+      "answer": "Azorius (White, Blue), Boros (White, Red), Dimir (Blue, Black), Golgari (Black, Green), Gruul (Red, Green), Izzet (Blue, Red), Orzhov (White, Black), Rakdos (Black, Red), Selesnya (White, Green), Simic (Blue, Green)",
+      "notes": "All 10 Ravnicanuilds alphabetical with two-color pairs. Colors listed White > Blue > Black > Red > Green within each pair."
+    },
+
+    {
+      "id": "mtg_006",
+      "category": "rules",
+      "question": "What are the 18 evergreen keyword actions (game mechanics, not ability keywords) in alphabetical order? (comma-separated list)",
+      "answer": "Activate, Attach, Cast, Counter, Create, Destroy, Discard, Exchange, Exile, Fight, Mill, Play, Reveal, Sacrifice, Scry, Search, Shuffle, Tap/Untap",
+      "notes": "Tap and Untap are paired as one entry. These are keyword actions per the Comprehensive Rules, distinct from keyword abilities."
+    },
+
+    {
+      "id": "mtg_007",
+      "category": "rules",
+      "question": "What are the 17 evergreen ability keywords (not game mechanics/keyword actions) in alphabetical order? (comma-separated list)",
+      "answer": "Deathtouch, Defender, Double strike, Enchant, Equip, First strike, Flash, Flying, Haste, Hexproof, Indestructible, Lifelink, Menace, Reach, Trample, Vigilance, Ward",
+      "notes": "These are evergreen keyword abilities per the Comprehensive Rules, distinct from keyword actions."
+    },
+
+    {
+      "id": "mtg_008",
+      "category": "formats",
+      "question": "During what month do Standard sets rotate, and after how long do cards rotate out of Standard? Format answer as 'Month, X years'.",
+      "answer": "September, 3 years",
+      "notes": "Standard rotation occurs each September; sets rotate out after approximately 3 years (since the 2022 rotation policy change)."
+    },
+
+    {
+      "id": "mtg_009",
+      "category": "products",
+      "question": "When were the first Commander preconstructed decks released? (dd-mm-yyyy)",
+      "answer": "17-06-2011",
+      "notes": "Release date of Commander (2011), the first official Commander precon product."
+    },
+
+    {
+      "id": "mtg_010",
+      "category": "products",
+      "question": "What were the names of the 5 decks in the first Commander preconstructed product (Commander 2011)? List them alphabetically (comma-separated).",
+      "answer": "Counterpunch, Devour for Power, Heavenly Inferno, Mirror Mastery, Political Puppets",
+      "notes": "Released 17-06-2011. Wedge-colored decks: Abzan, Sultai, Mardu, Temur, Jeskai respectively."
+    },
+
+    {
+      "id": "mtg_011",
+      "category": "reserved_list",
+      "question": "What are all of the cards from Limited Edition Alpha/Beta that are on the Reserved List? List them alphabetically (comma-separated).",
+      "answer": "Ancestral Recall, Badlands, Bayou, Black Lotus, Blaze of Glory, Braingeyser, Chaos Orb, Contract from Below, Copy Artifact, Cyclopean Tomb, Darkpact, Demonic Attorney, Demonic Hordes, Farmstead, Fastbond, Forcefield, Fork, Gauntlet of Might, Granite Gargoyle, Illusionary Mask, Kudzu, Lich, Mox Emerald, Mox Jet, Mox Pearl, Mox Ruby, Mox Sapphire, Natural Selection, Plateau, Raging River, Roc of Kher Ridges, Rock Hydra, Savannah, Scrubland, Sedge Troll, Taiga, Time Vault, Time Walk, Timetwister, Tropical Island, Tundra, Two-Headed Giant of Foriys, Underground Sea, Vesuvan Doppelganger, Veteran Bodyguard, Volcanic Island, Wheel of Fortune, Word of Command",
+      "notes": "48 cards total from the Limited Edition (Alpha/Beta) set that appear on the official Reserved List."
+    },
+
+    {
+      "id": "mtg_012",
+      "category": "sets",
+      "question": "What was the first MTG set to feature planeswalker cards, and when was it released? (Format: 'Set Name, dd-mm-yyyy')",
+      "answer": "Lorwyn, 12-10-2007",
+      "notes": "Lorwyn was the first set to introduce the planeswalker card type."
+    },
+
+    {
+      "id": "mtg_013",
+      "category": "cards",
+      "question": "What were the 5 first planeswalker cards ever printed, listed alphabetically? (comma-separated list)",
+      "answer": "Ajani Goldmane, Chandra Nalaar, Garruk Wildspeaker, Jace Beleren, Liliana Vess",
+      "notes": "All five were printed in Lorwyn (2007). Alphabetical order."
+    },
+
+    {
+      "id": "mtg_014",
+      "category": "cards",
+      "question": "What are the 7 most common creature subtypes in Magic: The Gathering (each with over 600 cards), listed alphabetically? (comma-separated list)",
+      "answer": "Elemental, Human, Soldier, Spirit, Warrior, Wizard, Zombie",
+      "notes": "These 7 subtypes each have 600+ cards printed as of recent data. Alphabetical order."
+    }
+
+  ],
+
+  "_template": {
+    "_comment": "Use this template to add new Q&A entries.",
+    "id": "mtg_XXX",
+    "category": "category_name",
+    "question": "The full question text as it would be posed to a model.",
+    "answer": "The exact expected answer string — must match character-for-character for a passing eval.",
+    "notes": "Optional clarifying context for maintainers. Not used in eval matching."
+  }
+}
