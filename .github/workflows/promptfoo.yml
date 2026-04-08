@@ -27,6 +27,9 @@ jobs:
           echo "Found configs: $FILES"
           echo "configs=$FILES" >> $GITHUB_OUTPUT
 
+      - name: Authenticate promptfoo
+        run: promptfoo auth login --host https://www.promptfoo.app --api-key ${{ secrets.PROMPTFOO_API_KEY }}
+
       - name: Run promptfoo eval
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
