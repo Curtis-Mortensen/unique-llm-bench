@@ -1,0 +1,26 @@
+# MTG Promptfoo Q&A — valid promptfoo config
+# oracle text sourced from Scryfall
+# mana symbols use {X} notation: {W} {U} {B} {R} {G} {C} {T}
+
+providers:
+  - id: openrouter:google/gemini-3.1-flash-preview
+    config:
+      apiKey: env:OPENROUTER_API_KEY
+      apiBaseUrl: https://openrouter.ai/api/v1
+      stream: true
+
+prompts:
+  - |-
+    You are a helpful assistant.
+
+    Please answer the following question:
+    {{question}}
+
+#defaultTest:
+#  options:
+#    transform: "output.trim().toLowerCase()"
+#  assert:
+#    - type: equals
+#      value: "{{answer | lower}}"
+
+tests: file://mtg.csv
