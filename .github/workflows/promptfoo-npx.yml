@@ -2,9 +2,6 @@ name: Promptfoo NPX Evals
 
 on:
   workflow_dispatch: # Run manually from the Actions tab
-  push:
-    paths:
-      - "promptfooconfig.yaml" # Also run when config changes
 
 jobs:
   promptfoo-eval:
